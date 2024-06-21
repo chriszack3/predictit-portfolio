@@ -2,13 +2,9 @@ import Title from '@/components/Title';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
-interface Post {
-  opAuthor: string;
-  opContent: string;
-  downvotes: string;
-  upvotes: string;
-  replies: Array<Post>;
-}
+import { Post } from '@/constants/interfaces';
+
+import Comment from '@/components/Comment';
 
 export default function Home() {
   const [state, setState] = useState<Array<Post>>([]);
@@ -25,15 +21,7 @@ export default function Home() {
       <div>
         {state &&
           state.map((post, i) => {
-            console.log(post);
-            return (
-              <div key={i}>
-                <p>{post.opAuthor}</p>
-                <p>{post.opContent}</p>
-                <p>{post.upvotes}</p>
-                <p>{post.downvotes}</p>
-              </div>
-            );
+            return <Comment key={i} post={post} nested={0}></Comment>;
           })}
       </div>
     </main>
