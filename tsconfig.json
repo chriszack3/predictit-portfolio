@@ -9,6 +9,7 @@
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "skipLibCheck": true,
+    "resolveJsonModule": true,
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
@@ -17,5 +18,9 @@
     "types": ["node", "@testing-library/jest-dom"]
   },
   "exclude": ["node_modules"],
-  "include": ["./src/**/*"]
+  "include": ["./src/**/*"],
+  "resolve": {
+    "extensions": [".ts", ".tsx", ".js", ".jsx", ".json"
+    ],
+  },
 }
