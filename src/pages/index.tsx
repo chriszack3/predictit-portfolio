@@ -22,7 +22,7 @@ export default function Home() {
       <div>
         {state &&
           state.map((post) => {
-            return <Comment key={uuidv4()} post={post} nested={0}></Comment>;
+            return <Comment key={uuidv4()} post={post} nested={1}></Comment>;
           })}
       </div>
     </main>

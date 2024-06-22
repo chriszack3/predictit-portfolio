@@ -23,14 +23,19 @@ export default function Comment({ post, nested, key }: CommentProps) {
   const replyCount = post?.replies?.length;
 
   return (
-    <div key={key}>
-      <p>{opAuthor}</p>
-      <p>{opContent}</p>
-      <p>{upvotes}</p>
-      <p>{downvotes}</p>
-      <p>{postedAt}</p>
+    <div key={key} className="mb-4">
+      <p className="text-xl font-bold">{opAuthor}</p>
+      <p className="text-gray-800">{opContent}</p>
+      <div className="flex space-x-4">
+        <p className="text-green-500">Upvotes: {upvotes}</p>
+        <p className="text-red-500">Downvotes: {downvotes}</p>
+      </div>
+      <p className="text-gray-600">{postedAt}</p>
       {post.replies && (
-        <button onClick={() => setShowMore(!showMore)}>
+        <button
+          onClick={() => setShowMore(!showMore)}
+          className="mt-2 text-blue-500 hover:underline"
+        >
           Show {replyCount} Replies
         </button>
       )}
@@ -40,12 +45,10 @@ export default function Comment({ post, nested, key }: CommentProps) {
           return (
             <div
               key={key}
-              style={{
-                paddingLeft: 20 * nested + `px`,
-                borderLeft: `2px black solid`,
-              }}
+              className={`border-l-2 border-black`}
+              style={{ marginLeft: 10 * nested + `px` }}
             >
-              <Comment key={uuidv4()} post={rep} nested={nested + 1}></Comment>
+              <Comment key={uuidv4()} post={rep} nested={nested + 1} />
             </div>
           );
         })}
