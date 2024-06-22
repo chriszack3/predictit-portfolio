@@ -1,6 +1,7 @@
 import Title from '@/components/Title';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 import { Post } from '@/constants/interfaces';
 
@@ -20,8 +21,8 @@ export default function Home() {
       <Title>Hello TypeScript!</Title>
       <div>
         {state &&
-          state.map((post, i) => {
-            return <Comment key={i} post={post} nested={0}></Comment>;
+          state.map((post) => {
+            return <Comment key={uuidv4()} post={post} nested={0}></Comment>;
           })}
       </div>
     </main>

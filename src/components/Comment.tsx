@@ -1,9 +1,10 @@
 import { Post } from '@/constants/interfaces';
+import { v4 as uuidv4 } from 'uuid';
 
 type CommentProps = {
   post: Post;
   nested: number;
-  key: number;
+  key: string;
 };
 
 export default function Comment({ post, nested, key }: CommentProps) {
@@ -23,7 +24,7 @@ export default function Comment({ post, nested, key }: CommentProps) {
                 borderLeft: `2px black solid`,
               }}
             >
-              <Comment post={rep} nested={nested + 1}></Comment>
+              <Comment key={uuidv4()} post={rep} nested={nested + 1}></Comment>
             </div>
           );
         })}
