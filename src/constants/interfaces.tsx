@@ -3,5 +3,6 @@ export interface Post {
   opContent: string;
   downvotes: string;
   upvotes: string;
+  postedAtMS: number;
   replies: Array<Post>;
 }
