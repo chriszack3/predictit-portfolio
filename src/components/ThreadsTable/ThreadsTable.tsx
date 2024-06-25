@@ -41,6 +41,12 @@ export default function Home({ threadArr }: ThreadsTableProps) {
       <div id="button-box">
         <button
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+          onClick={() => setFilter(`all`)}
+        >
+          OP Thread Date/Time
+        </button>
+        <button
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
           onClick={() => setFilter(`high`)}
         >
           Highest Avg. Score
