@@ -23,6 +23,6 @@ export interface Post {
   downvotes: string;
   upvotes: string;
   postedAtMS: number;
-  replies: Array<Post>;
-  result: Result;
+  replies: Array<Post> | undefined;
+  result: Result | undefined;
 }
