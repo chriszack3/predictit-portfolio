@@ -6,14 +6,9 @@ type ThreadProps = {
   post: Post;
   nested: number;
   key: string;
-  threadData:
-    | {
-        avgScore: number;
-      }
-    | undefined;
 };
 
-export default function Thread({ post, nested, key, threadData }: ThreadProps) {
+export default function Thread({ post, nested, key }: ThreadProps) {
   const [showMore, setShowMore] = useState(false);
   const { opAuthor, opContent, upvotes, downvotes, postedAtMS, result } = post;
   const postedAt = Intl.DateTimeFormat(navigator.language, {
@@ -34,8 +29,8 @@ export default function Thread({ post, nested, key, threadData }: ThreadProps) {
         <p className="text-green-500">Upvotes: {upvotes}</p>
         <p className="text-red-500">Downvotes: {downvotes}</p>
         <p>Score: {result?.documentSentiment?.score}</p>
-        {threadData?.avgScore && (
-          <p>Thread Average Score: {threadData?.avgScore}</p>
+        {post?.threadAvgScore && (
+          <p>Thread Average Score: {post?.threadAvgScore}</p>
         )}
       </div>
       <p className="text-gray-600">{postedAt}</p>
@@ -56,12 +51,7 @@ export default function Thread({ post, nested, key, threadData }: ThreadProps) {
               className={`border-l-2 border-black`}
               style={{ marginLeft: 10 * nested + `px` }}
             >
-              <Thread
-                key={uuidv4()}
-                post={rep}
-                nested={nested + 1}
-                threadData={undefined}
-              />
+              <Thread key={uuidv4()} post={rep} nested={nested + 1} />
             </div>
           );
         })}

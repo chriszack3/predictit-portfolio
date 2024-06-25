@@ -23,6 +23,9 @@ export interface Post {
   downvotes: string;
   upvotes: string;
   postedAtMS: number;
-  replies: Array<Post> | undefined;
-  result: Result | undefined;
+  replies?: Array<Post>;
+  result?: Result;
+  threadAvgScore?: number;
+  threadScoreTotal?: number;
+  threadCountTotal?: number;
 }
