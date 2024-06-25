@@ -2,16 +2,20 @@ import { Post } from '@/constants/interfaces';
 import { v4 as uuidv4 } from 'uuid';
 import { useState } from 'react';
 
-type CommentProps = {
+type ThreadProps = {
   post: Post;
   nested: number;
   key: string;
+  threadData:
+    | {
+        avgScore: number;
+      }
+    | undefined;
 };
 
-export default function Comment({ post, nested, key }: CommentProps) {
+export default function Thread({ post, nested, key, threadData }: ThreadProps) {
   const [showMore, setShowMore] = useState(false);
-
-  const { opAuthor, opContent, upvotes, downvotes, postedAtMS } = post;
+  const { opAuthor, opContent, upvotes, downvotes, postedAtMS, result } = post;
   const postedAt = Intl.DateTimeFormat(navigator.language, {
     weekday: `long`,
     month: `long`,
@@ -23,12 +27,16 @@ export default function Comment({ post, nested, key }: CommentProps) {
   const replyCount = post?.replies?.length;
 
   return (
-    <div key={key} className="mb-4">
+    <div key={key} className="w-9/12 mb-4">
       <p className="text-xl font-bold">{opAuthor}</p>
       <p className="text-gray-800">{opContent}</p>
       <div className="flex space-x-4">
         <p className="text-green-500">Upvotes: {upvotes}</p>
         <p className="text-red-500">Downvotes: {downvotes}</p>
+        <p>Score: {result?.documentSentiment?.score}</p>
+        {threadData?.avgScore && (
+          <p>Thread Average Score: {threadData?.avgScore}</p>
+        )}
       </div>
       <p className="text-gray-600">{postedAt}</p>
       {post.replies && (
@@ -48,7 +56,12 @@ export default function Comment({ post, nested, key }: CommentProps) {
               className={`border-l-2 border-black`}
               style={{ marginLeft: 10 * nested + `px` }}
             >
-              <Comment key={uuidv4()} post={rep} nested={nested + 1} />
+              <Thread
+                key={uuidv4()}
+                post={rep}
+                nested={nested + 1}
+                threadData={undefined}
+              />
             </div>
           );
         })}
