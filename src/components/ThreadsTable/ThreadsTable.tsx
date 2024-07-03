@@ -54,7 +54,6 @@ export default function Home({ threadArr }: ThreadsTableProps) {
       </div>
       {arrayToRender &&
         arrayToRender.map((post: Post) => {
-          console.log(post);
           return <Thread key={uuidv4()} post={post} nested={1}></Thread>;
         })}
     </div>
