@@ -25,16 +25,45 @@ ChartJS.register(
 //     borderWidth: number;
 // }
 
-type Label = string;
-
-type Labels = Array<Label>;
-
 type GraphProps = {
-  labels: Labels;
   threadArr: Array<Post>;
 };
 
-export default function Graph({ labels, threadArr }: GraphProps) {
+export default function Graph({ threadArr }: GraphProps) {
+  const formatForAvgSent = (state: Array<Post>) => {
+    let oldestDate = Date.now();
+    let newestDate = 0;
+    state.forEach((post) => {
+      if (typeof post.postedAtMS === `number`) {
+        if (post.postedAtMS < oldestDate) {
+          oldestDate = post.postedAtMS;
+        }
+        if (post.postedAtMS > newestDate) {
+          newestDate = post.postedAtMS;
+        }
+        // post.postedAtMS < oldestDate ? oldestDate = post.postedAtMS : null
+        // post.postedAtMS > newestDate ? newestDate = post.postedAtMS : null
+      }
+    });
+
+    const formatDate = (date: number) => {
+      return Intl.DateTimeFormat(navigator.language, {
+        month: `long`,
+        day: `numeric`,
+        year: `numeric`,
+      }).format(date);
+    };
+
+    const weekInMS = 7 * 24 * 60 * 60 * 1000;
+    const weeks = [];
+    let date = oldestDate;
+    while (date < newestDate) {
+      weeks.push(formatDate(date));
+      date += weekInMS;
+    }
+    return weeks;
+  };
+  const labels = formatForAvgSent(threadArr);
   const options = {
     responsive: true,
     plugins: {
@@ -48,7 +77,7 @@ export default function Graph({ labels, threadArr }: GraphProps) {
     },
   };
 
-  const getWeekAvg = (startDay: Label, threadArr: Array<Post>) => {
+  const getWeekAvg = (startDay: string, threadArr: Array<Post>) => {
     let weeklyTotal = 0;
     let weeklyCount = 0;
     const weekInMS = 7 * 24 * 60 * 60 * 1000;
