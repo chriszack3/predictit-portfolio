@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 
 import { Post } from '@/constants/interfaces';
 
-import Graph from '@/components/Graph/Graph';
+import Graph from '@/components/AvgSentGraph/AvgSentGraph';
 import ThreadsTable from '@/components/ThreadsTable/ThreadsTable';
 
 export default function Home() {
