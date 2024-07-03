@@ -24,7 +24,7 @@ export default function Home() {
         threadArr={state}
       />
       <DifferenceGraph
-        graphTitle="Thread Net Score vs. Number of Replies"
+        graphTitle=" Number of Replies vs. Thread Net Upvotes"
         threadArr={state}
       />
       <div>{state && <ThreadsTable threadArr={state} />}</div>
