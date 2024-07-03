@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { Post } from '@/constants/interfaces';
 
 import AvgSentGraph from '@/components/AvgSentGraph/AvgSentGraph';
+import DifferenceGraph from '@/components/NetScoreGraph/NetScoreGraph';
 import ThreadsTable from '@/components/ThreadsTable/ThreadsTable';
 
 export default function Home() {
@@ -20,6 +21,10 @@ export default function Home() {
     <main>
       <AvgSentGraph
         graphTitle="Weekly Average Comment Sentiment Score"
+        threadArr={state}
+      />
+      <DifferenceGraph
+        graphTitle="Thread Net Score vs. Number of Replies"
         threadArr={state}
       />
       <div>{state && <ThreadsTable threadArr={state} />}</div>
