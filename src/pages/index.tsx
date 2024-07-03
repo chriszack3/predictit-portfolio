@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 
 import { Post } from '@/constants/interfaces';
 
-import Graph from '@/components/AvgSentGraph/AvgSentGraph';
+import AvgSentGraph from '@/components/AvgSentGraph/AvgSentGraph';
 import ThreadsTable from '@/components/ThreadsTable/ThreadsTable';
 
 export default function Home() {
@@ -18,7 +18,7 @@ export default function Home() {
 
   return (
     <main>
-      <Graph threadArr={state} />
+      <AvgSentGraph threadArr={state} />
       <div>{state && <ThreadsTable threadArr={state} />}</div>
     </main>
   );
