@@ -28,14 +28,9 @@ ChartJS.register(
 type GraphProps = {
   threadArr: Array<Post>;
   graphTitle: string;
-  dataTitle: string;
 };
 
-export default function Graph({
-  threadArr,
-  graphTitle,
-  dataTitle,
-}: GraphProps) {
+export default function Graph({ threadArr, graphTitle }: GraphProps) {
   const formatForAvgSent = (state: Array<Post>) => {
     let oldestDate = Date.now();
     let newestDate = 0;
@@ -107,7 +102,7 @@ export default function Graph({
     labels,
     datasets: [
       {
-        label: dataTitle || `No data title...`,
+        label: `Avg. Sentiment Score`,
         data: labels.map((label) => {
           const [weeklyTotal, weeklyCount] = getWeekAvg(label, threadArr);
           return weeklyTotal / weeklyCount;
