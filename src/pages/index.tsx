@@ -18,7 +18,11 @@ export default function Home() {
 
   return (
     <main>
-      <AvgSentGraph threadArr={state} />
+      <AvgSentGraph
+        graphTitle="Weekly Average Comment Sentiment Score"
+        dataTitle="Avg. Sentiment Score"
+        threadArr={state}
+      />
       <div>{state && <ThreadsTable threadArr={state} />}</div>
     </main>
   );

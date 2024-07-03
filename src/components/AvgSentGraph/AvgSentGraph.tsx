@@ -27,9 +27,15 @@ ChartJS.register(
 
 type GraphProps = {
   threadArr: Array<Post>;
+  graphTitle: string;
+  dataTitle: string;
 };
 
-export default function Graph({ threadArr }: GraphProps) {
+export default function Graph({
+  threadArr,
+  graphTitle,
+  dataTitle,
+}: GraphProps) {
   const formatForAvgSent = (state: Array<Post>) => {
     let oldestDate = Date.now();
     let newestDate = 0;
@@ -72,7 +78,7 @@ export default function Graph({ threadArr }: GraphProps) {
       },
       title: {
         display: true,
-        text: `Chart.js Bar Chart`,
+        text: graphTitle || `No graph title...`,
       },
     },
   };
@@ -101,7 +107,7 @@ export default function Graph({ threadArr }: GraphProps) {
     labels,
     datasets: [
       {
-        label: `Dataset 1`,
+        label: dataTitle || `No data title...`,
         data: labels.map((label) => {
           const [weeklyTotal, weeklyCount] = getWeekAvg(label, threadArr);
           return weeklyTotal / weeklyCount;
