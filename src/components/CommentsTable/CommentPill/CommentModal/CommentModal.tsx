@@ -1,5 +1,6 @@
 import { Post } from '@/constants/interfaces';
 import Modal from 'react-modal';
+import Sentence from './Sentence/Sentence';
 import { v4 as uuidv4 } from 'uuid';
 
 type CommentModalProps = {
@@ -22,6 +23,7 @@ export default function CommentModal({
   }
 
   const sentenceArr = post?.result?.sentences || [];
+
   return (
     <div>
       <Modal
@@ -36,22 +38,7 @@ export default function CommentModal({
           {sentenceArr.length > 0 && (
             <div>
               {sentenceArr.map((sentence) => {
-                const score = sentence?.sentiment?.score || 0;
-                const magnitude = sentence?.sentiment?.magnitude || 0;
-                const fontWeight = magnitude * 900;
-                return (
-                  <span
-                    key={uuidv4()}
-                    style={{
-                      backgroundColor: score > 0 ? `green` : `red`,
-                      filter: `saturate(${Math.abs(score) * 100}%)`,
-                      fontWeight,
-                      color: `white`,
-                    }}
-                  >
-                    {sentence?.text?.content}
-                  </span>
-                );
+                return <Sentence key={uuidv4()} sentence={sentence} />;
               })}
             </div>
           )}

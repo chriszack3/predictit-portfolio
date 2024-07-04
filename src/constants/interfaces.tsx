@@ -6,7 +6,7 @@ type Text = {
   beginOffset: number;
   content: string;
 };
-type Sentence = {
+export type Sentence = {
   sentiment: Sentiment;
   text: Text;
 };
