@@ -5,7 +5,7 @@ import { Post } from '@/constants/interfaces';
 
 import AvgSentGraph from '@/components/AvgSentGraph/AvgSentGraph';
 import DifferenceGraph from '@/components/NetScoreGraph/NetScoreGraph';
-import CommentPill from '@/components/CommentPill/CommentPill';
+import CommentTable from '@/components/CommentsTable/CommentsTable';
 
 export default function Home() {
   const [state, setState] = useState<Array<Post>>([]);
@@ -41,18 +41,7 @@ export default function Home() {
         graphTitle=" Number of Replies vs. Thread Net Upvotes"
         threadArr={state}
       />
-      {
-        <div className="flex flex-wrap w-3/12">
-          {allComments.length > 0 &&
-            allComments.map((comment, i) => {
-              return (
-                <span key={i}>
-                  <CommentPill post={comment} />
-                </span>
-              );
-            })}
-        </div>
-      }
+      <CommentTable allComments={allComments} />
       {/* <div>{state && <ThreadsTable threadArr={state} />}</div> */}
     </main>
   );
