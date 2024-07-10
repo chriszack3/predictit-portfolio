@@ -5,5 +5,5 @@ export default function handler(
   req: GatsbyFunctionRequest,
   res: GatsbyFunctionResponse,
 ) {
-  res.send(postsJSON);
+  return res.send(postsJSON);
 }
