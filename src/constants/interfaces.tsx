@@ -41,6 +41,7 @@ export interface FlatPost {
   postedAtMS: number;
   replies?: Array<FlatPost['id']>;
   parentPost?: FlatPost['id'];
+  result?: Result;
 }
 
 export interface CommentContextType {

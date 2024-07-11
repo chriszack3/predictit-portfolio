@@ -4,6 +4,7 @@ import { useEffect, useState, createContext } from 'react';
 import { FlatPost, CommentContextType } from '../constants/interfaces';
 
 import CalendarComponent from '@/components/Calendar/Calendar';
+import CommentContainer from '@/components/CommentContainer/CommentContainer';
 
 import 'react-calendar/dist/Calendar.css';
 
@@ -11,24 +12,23 @@ export default function Comments() {
   const [comments, setComments] = useState<Array<FlatPost>>([]);
   const [date, setDate] = useState(new Date());
 
-  const CommentContext = createContext({ date, setDate } as CommentContextType);
+  const DateContext = createContext({ date, setDate } as CommentContextType);
 
   useEffect(() => {
     axios.get(`/api/getFlatPosts`).then((response) => {
       setComments(response.data);
     });
   }, []);
-  console.log(comments);
 
   return (
-    <CommentContext.Provider
+    <DateContext.Provider
       value={{
         date,
         setDate,
       }}
     >
-      <h1>Comments</h1>
-      <CalendarComponent context={CommentContext} />
-    </CommentContext.Provider>
+      <CalendarComponent DateContext={DateContext} />
+      <CommentContainer DateContext={DateContext} comments={comments} />
+    </DateContext.Provider>
   );
 }

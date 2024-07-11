@@ -5,13 +5,16 @@ import 'react-calendar/dist/Calendar.css';
 
 import { CommentContextType } from '@/constants/interfaces';
 
-export default function CalendarComponent({ context }: { context: any }) {
+export default function CalendarComponent({
+  DateContext,
+}: {
+  DateContext: any;
+}) {
   const handleOnChange = (e: any) => {
     setDate(e);
   };
 
-  const { date, setDate } = useContext<CommentContextType>(context);
-  console.log(date);
+  const { date, setDate } = useContext<CommentContextType>(DateContext);
 
   return (
     <div>
