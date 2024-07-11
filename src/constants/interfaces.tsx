@@ -1,3 +1,5 @@
+import React from 'react';
+
 type Sentiment = {
   magnitude: number;
   score: number;
@@ -39,4 +41,9 @@ export interface FlatPost {
   postedAtMS: number;
   replies?: Array<FlatPost['id']>;
   parentPost?: FlatPost['id'];
+}
+
+export interface CommentContextType {
+  date: Date;
+  setDate: React.Dispatch<React.SetStateAction<Date>>;
 }
