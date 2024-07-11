@@ -29,3 +29,14 @@ export interface Post {
   threadScoreTotal?: number;
   threadCountTotal?: number;
 }
+
+export interface FlatPost {
+  id: string;
+  author: string;
+  content: string;
+  downvotes: string;
+  upvotes: string;
+  postedAtMS: number;
+  replies?: Array<FlatPost['id']>;
+  parentPost?: FlatPost['id'];
+}

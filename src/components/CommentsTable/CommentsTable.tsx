@@ -24,21 +24,24 @@ export default function CommentTable({ allComments }: CommentTableProps) {
     `negative`,
     `neutral`,
   ]);
-  const arrToRender = allComments.filter((comment) => {
-    const score = comment?.result?.documentSentiment?.score || 0;
-    if (score >= 0.25) {
-      return filters.includes(`positive`);
-    }
-    if (score <= -0.25) {
-      return filters.includes(`negative`);
-    }
-    if (score <= 0.25 && score >= -0.25) {
-      return filters.includes(`neutral`);
-    } else {
-      return false;
-    }
-  });
+  const arrToRender =
+    // filters out comments based on filter status and sentiment score
+    allComments.filter((comment) => {
+      const score = comment?.result?.documentSentiment?.score || 0;
+      if (score >= 0.25) {
+        return filters.includes(`positive`);
+      }
+      if (score <= -0.25) {
+        return filters.includes(`negative`);
+      }
+      if (score <= 0.25 && score >= -0.25) {
+        return filters.includes(`neutral`);
+      } else {
+        return false;
+      }
+    });
   const handleClickCheck = (filtStr: Filter, filters: Array<Filter>) => {
+    // if filter is not in filters array, add it, else remove it
     !filters.includes(filtStr)
       ? setFilters([...filters, filtStr])
       : setFilters(filters.filter((f) => f !== filtStr));

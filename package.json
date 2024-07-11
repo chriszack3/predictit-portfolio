@@ -37,6 +37,7 @@
     "gatsby": "5.9.0",
     "gatsby-plugin-pnpm": "1.2.10",
     "react": "18.2.0",
+    "react-calendar": "5.0.0",
     "react-chartjs-2": "5.2.0",
     "react-dom": "18.2.0",
     "react-modal": "3.16.1",
