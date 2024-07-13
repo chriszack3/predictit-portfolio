@@ -7,18 +7,24 @@ import { CommentContextType } from '@/constants/interfaces';
 
 export default function CalendarComponent({
   DateContext,
+  range,
 }: {
   DateContext: any;
+  range: [number, number];
 }) {
   const handleOnChange = (e: any) => {
     setDate(e);
   };
 
   const { date, setDate } = useContext<CommentContextType>(DateContext);
-
   return (
     <div>
-      <Calendar value={date} onChange={(e) => handleOnChange(e)} />
+      <Calendar
+        minDate={new Date(range[0])}
+        maxDate={new Date(range[1])}
+        value={date}
+        onChange={(e) => handleOnChange(e)}
+      />
     </div>
   );
 }

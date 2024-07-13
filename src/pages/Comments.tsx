@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useEffect, useState, createContext } from 'react';
 
 import { FlatPost, CommentContextType } from '../constants/interfaces';
+import { getDateRange } from '../constants/functions';
 
 import CalendarComponent from '@/components/Calendar/Calendar';
 import CommentContainer from '@/components/CommentContainer/CommentContainer';
@@ -24,6 +25,7 @@ export default function Comments() {
         console.error(error);
       });
   }, []);
+  const [minDate, maxDate] = getDateRange(comments);
 
   return (
     <DateContext.Provider
@@ -32,7 +34,7 @@ export default function Comments() {
         setDate,
       }}
     >
-      <CalendarComponent DateContext={DateContext} />
+      <CalendarComponent range={[minDate, maxDate]} DateContext={DateContext} />
       <CommentContainer DateContext={DateContext} comments={comments} />
     </DateContext.Provider>
   );
