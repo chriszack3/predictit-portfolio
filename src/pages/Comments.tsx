@@ -15,9 +15,14 @@ export default function Comments() {
   const DateContext = createContext({ date, setDate } as CommentContextType);
 
   useEffect(() => {
-    axios.get(`/api/getFlatPosts`).then((response) => {
-      setComments(response.data);
-    });
+    axios
+      .get(`/api/getFlatPosts`)
+      .then((response) => {
+        setComments(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }, []);
 
   return (

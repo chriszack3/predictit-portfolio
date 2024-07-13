@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { FlatPost, CommentContextType } from '@/constants/interfaces';
 import CommentPill from '@/components/CommentContainer/CommentPill/CommentPill';
+import CountGraph from '@/components/CountGraph/CountGraph';
 
 export default function CommentContainer({
   comments,
@@ -19,8 +20,13 @@ export default function CommentContainer({
     ];
     return postedAtMS >= start && postedAtMS <= end;
   });
+
   return (
     <div>
+      <h3>
+        {date.toDateString()}: {toRender.length} Comments
+      </h3>
+      <CountGraph date={date} comments={toRender} />
       {toRender.map((comment) => (
         <CommentPill key={comment.id} comment={comment} />
       ))}
