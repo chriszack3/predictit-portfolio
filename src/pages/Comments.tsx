@@ -14,18 +14,20 @@ export default function Comments() {
   const [date, setDate] = useState(new Date());
 
   const DateContext = createContext({ date, setDate } as CommentContextType);
+  const [minDate, maxDate] = getDateRange(comments);
 
   useEffect(() => {
     axios
       .get(`/api/getFlatPosts`)
       .then((response) => {
         setComments(response.data);
+        const [minDate] = getDateRange(response.data);
+        setDate(new Date(minDate));
       })
       .catch((error) => {
         console.error(error);
       });
   }, []);
-  const [minDate, maxDate] = getDateRange(comments);
 
   return (
     <DateContext.Provider
