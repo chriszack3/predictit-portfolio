@@ -1,6 +1,6 @@
 import { FlatPost, Post } from '@/constants/interfaces';
 
-export const getPosCount = (comArr: Array<Post>) => {
+export const getPosCount = (comArr: Array<Post | FlatPost>) => {
   let i = 0;
   comArr.forEach((com) => {
     const score = com?.result?.documentSentiment?.score || 0;
@@ -10,7 +10,7 @@ export const getPosCount = (comArr: Array<Post>) => {
   });
   return i;
 };
-export const getNegCount = (comArr: Array<Post>) => {
+export const getNegCount = (comArr: Array<Post | FlatPost>) => {
   let i = 0;
   comArr.forEach((com) => {
     const score = com?.result?.documentSentiment?.score || 0;
@@ -20,7 +20,7 @@ export const getNegCount = (comArr: Array<Post>) => {
   });
   return i;
 };
-export const getNeutCount = (comArr: Array<Post>) => {
+export const getNeutCount = (comArr: Array<Post | FlatPost>) => {
   let i = 0;
   comArr.forEach((com) => {
     const score = com?.result?.documentSentiment?.score || 0;

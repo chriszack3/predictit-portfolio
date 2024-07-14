@@ -14,7 +14,7 @@ export default function CommentPill({ comment }: { comment: FlatPost }) {
     <>
       <button
         onClick={() => setIsOpen(true)}
-        className="w-32 h-12 rounded-lg"
+        className="w-12 h-12"
         style={{
           backgroundColor: docScore > 0 ? `green` : `red`,
           filter: `saturate(${Math.abs(docScore) * 100}%)`,
