@@ -13,14 +13,40 @@ const CommentTable = ({ comments }: { comments: Array<FlatPost> }) => {
     };
   });
   return (
-    <div className="w-6/12 shadow border rounded p-4">
-      <h4 className="text-lg mb-2">{comments.length} Total Comments</h4>
-      <h4 className="text-lg mb-2">
-        Positive: {getPosCount(comments)} Neutral: {getNeutCount(comments)}
-        {` `}
-        Negative: {getNegCount(comments)}
-      </h4>
-      <div className="h-48 overflow-y-auto">
+    <div className="w-6/12 shadow border rounded">
+      <div className="mb-4 shadow border-b p-4">
+        <h4 className="text-lg mb-2">
+          Total Comments: <span className="font-bold">{comments.length}</span>
+        </h4>
+        <h4 className="text-lg mb-2">
+          Positive: <span className="font-bold">{getPosCount(comments)}</span>
+          {` `}
+          Neutral: <span className="font-bold">{getNeutCount(comments)}</span>
+          {` `}
+          Negative: <span className="font-bold">{getNegCount(comments)}</span>
+        </h4>
+        <div className="flex w-9/12 items-baseline">
+          <p className="whitespace-nowrap pr-2">Most Negative</p>
+          <div
+            style={{
+              // gradient element
+              background: `linear-gradient(to right, red 33%, black)`,
+              height: `10px`,
+              width: `50%`,
+            }}
+          ></div>
+          <div
+            style={{
+              // gradient element
+              background: `linear-gradient(to left, green 33%, black)`,
+              height: `10px`,
+              width: `50%`,
+            }}
+          ></div>
+          <span className="whitespace-nowrap pl-2">Most Positive</span>
+        </div>
+      </div>
+      <div className="h-48 overflow-y-auto p-4">
         {yAxis.map(({ hour, time }) => {
           return (
             <div
