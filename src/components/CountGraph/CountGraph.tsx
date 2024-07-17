@@ -29,11 +29,14 @@ const CountGraph = ({
 }) => {
   const { date } = useContext<CommentContextType>(DateContext);
 
-  const formattedDate = date.toLocaleDateString(navigator.language, {
-    month: `long`,
-    day: `numeric`,
-    year: `numeric`,
-  });
+  const formattedDate = date.toLocaleDateString(
+    typeof navigator !== `undefined` ? navigator.language : `en-us`,
+    {
+      month: `long`,
+      day: `numeric`,
+      year: `numeric`,
+    },
+  );
   const options = {
     responsive: true,
     plugins: {

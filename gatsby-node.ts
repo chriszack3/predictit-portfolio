@@ -3,12 +3,19 @@ import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
 
 export const onCreateWebpackConfig: GatsbyNode['onCreateWebpackConfig'] = ({
   actions,
+  getConfig
 }) => {
   actions.setWebpackConfig({
     resolve: {
       plugins: [new TsconfigPathsPlugin()],
     },
+    
   });
+  const config = getConfig()
+  if (config.externals && config.externals[0]) {
+    config.externals[0]["node:crypto"] = 'crypto-browserify';
+  }
+  actions.replaceWebpackConfig(config)
 };
 
 import flatJSON from './src/static/flatResults.json';
