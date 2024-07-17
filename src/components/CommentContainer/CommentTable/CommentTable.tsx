@@ -13,19 +13,19 @@ const CommentTable = ({ comments }: { comments: Array<FlatPost> }) => {
     };
   });
   return (
-    <div>
+    <div className="w-6/12 shadow border rounded p-4">
       <h4 className="text-lg mb-2">{comments.length} Total Comments</h4>
       <h4 className="text-lg mb-2">
         Positive: {getPosCount(comments)} Neutral: {getNeutCount(comments)}
         {` `}
         Negative: {getNegCount(comments)}
       </h4>
-      <div className="h-48 overflow-y-auto">
+      <div className="h-48  overflow-y-auto">
         {yAxis.map(({ hour, time }) => {
           return (
             <div key={uuidv4()} className="flex gap-2 mb-4">
               <h4 className="w-36 block font-bold">{time}</h4>
-              <div className="w-4/12 h-24 overflow-y-auto">
+              <div className="w-8/12 h-24 overflow-y-auto">
                 {comments
                   .filter((comment) => {
                     const { postedAtMS } = comment;

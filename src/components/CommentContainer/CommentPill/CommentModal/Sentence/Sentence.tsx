@@ -8,7 +8,6 @@ export default function Sentence({ sentence }: SentenceProps) {
   const [showTooltip, setShowTooltip] = useState(false);
   const score = sentence?.sentiment?.score || 0;
   const magnitude = sentence?.sentiment?.magnitude || 0;
-  const fontWeight = magnitude * 900;
   return (
     <>
       <span
@@ -18,7 +17,6 @@ export default function Sentence({ sentence }: SentenceProps) {
         style={{
           backgroundColor: score > 0 ? `green` : `red`,
           filter: `saturate(${Math.abs(score) * 100}%)`,
-          fontWeight,
           color: `white`,
         }}
       >

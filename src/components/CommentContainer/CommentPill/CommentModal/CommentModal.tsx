@@ -23,6 +23,7 @@ export default function CommentModal({
   }
 
   const sentenceArr = post?.result?.sentences || [];
+  const documentSentiment = post?.result?.documentSentiment;
   const postedAt = new Date(post.postedAtMS).toLocaleString();
   return (
     <div>
@@ -32,10 +33,9 @@ export default function CommentModal({
         onRequestClose={closeModal}
         contentLabel="Example Modal"
       >
-        <button onClick={() => closeModal()}>close</button>
+        <button onClick={() => closeModal()}>X</button>
 
         <div>
-          <p>{postedAt}</p>
           {sentenceArr.length > 0 && (
             <div>
               {sentenceArr.map((sentence) => {
@@ -43,6 +43,27 @@ export default function CommentModal({
               })}
             </div>
           )}
+        </div>
+        <p>
+          Document Sentiment: {documentSentiment?.score} | Document Magnitude:
+          {` `}
+          {documentSentiment?.magnitude}
+        </p>
+        <p>Posted: {postedAt}</p>
+        <div>
+          {sentenceArr.map((sentence, i) => {
+            return (
+              <div key={uuidv4()}>
+                <p>
+                  Sentence {i + 1} Text: {sentence.text.content}
+                </p>
+                <p>
+                  <span>Score: {sentence.sentiment.score} </span>
+                  <span>Magnitude: {sentence.sentiment.magnitude} </span>
+                </p>
+              </div>
+            );
+          })}
         </div>
       </Modal>
     </div>
