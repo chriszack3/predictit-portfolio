@@ -20,10 +20,13 @@ const CommentTable = ({ comments }: { comments: Array<FlatPost> }) => {
         {` `}
         Negative: {getNegCount(comments)}
       </h4>
-      <div className="h-48  overflow-y-auto">
+      <div className="h-48 overflow-y-auto">
         {yAxis.map(({ hour, time }) => {
           return (
-            <div key={uuidv4()} className="flex gap-2 mb-4">
+            <div
+              key={uuidv4()}
+              className="flex gap-2 mb-4 border-dashed border-gray-300 border-2 rounded p-2"
+            >
               <h4 className="w-36 block font-bold">{time}</h4>
               <div className="w-8/12 h-24 overflow-y-auto">
                 {comments
