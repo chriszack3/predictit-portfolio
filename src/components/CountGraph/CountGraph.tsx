@@ -1,5 +1,6 @@
+import { useContext } from 'react';
+import { CommentContextType, FlatPost } from '@/constants/interfaces';
 import { Bar } from 'react-chartjs-2';
-import { FlatPost } from '@/constants/interfaces';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -21,11 +22,13 @@ ChartJS.register(
 
 const CountGraph = ({
   comments,
-  date,
+  DateContext,
 }: {
   comments: Array<FlatPost>;
-  date: Date;
+  DateContext: any;
 }) => {
+  const { date } = useContext<CommentContextType>(DateContext);
+
   const formattedDate = date.toLocaleDateString(navigator.language, {
     month: `long`,
     day: `numeric`,
@@ -68,7 +71,7 @@ const CountGraph = ({
     ],
   };
   return (
-    <div style={{ width: `50vw` }}>
+    <div style={{ width: `35vw` }}>
       <Bar data={data} options={options} />
     </div>
   );

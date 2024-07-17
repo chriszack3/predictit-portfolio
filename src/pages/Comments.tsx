@@ -6,6 +6,7 @@ import { getDateRange } from '../constants/functions';
 
 import CalendarComponent from '@/components/Calendar/Calendar';
 import CommentContainer from '@/components/CommentContainer/CommentContainer';
+import CountGraph from '@/components/CountGraph/CountGraph';
 
 import 'react-calendar/dist/Calendar.css';
 
@@ -20,8 +21,16 @@ export default function Comments({ data }: { data: any }) {
     setComments(allComments);
     const [minDate] = getDateRange(allComments);
     setDate(new Date(minDate));
-  }, []);
-
+  }, [data.allFlatPost.edges]);
+  const toRender = comments.filter((comment) => {
+    const { postedAtMS } = comment;
+    const dayInMS = 86400000;
+    const [start, end] = [
+      Date.parse(date as any),
+      Date.parse(date as any) + dayInMS,
+    ];
+    return postedAtMS >= start && postedAtMS <= end;
+  });
   return (
     <DateContext.Provider
       value={{
@@ -29,8 +38,14 @@ export default function Comments({ data }: { data: any }) {
         setDate,
       }}
     >
-      <CalendarComponent range={[minDate, maxDate]} DateContext={DateContext} />
-      <CommentContainer DateContext={DateContext} comments={comments} />
+      <div className="flex items-end gap-2 pl-4">
+        <CalendarComponent
+          range={[minDate, maxDate]}
+          DateContext={DateContext}
+        />
+        <CountGraph DateContext={DateContext} comments={toRender} />
+      </div>
+      <CommentContainer DateContext={DateContext} comments={toRender} />
     </DateContext.Provider>
   );
 }
