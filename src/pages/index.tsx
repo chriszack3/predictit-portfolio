@@ -18,15 +18,21 @@ export default function Home() {
           sell shares of political events. The price of a share ranges from
           $00.01 to $00.99. This can also be seen as corresponding to the
           percieved likilihood of an event occuring. Notably, there is a comment
-          section associated with every market. I wrote a program to scrape the
-          comments from a given PredictIt market. Click "How To" to see the code
-          and learn how to write your own. Click "Comments Visualization" to see
-          the comments from a given market scored by Google's Natural Language
-          API on their positive or negative sentiment, graphed by number of
-          replies per 24 hour cycle of a selected date, and shown below in a
-          shade of red, grey, or green to indicate relative level of negative,
-          neutral, or positive sentiment respectively. Each comment can be
-          clicked on and a more detailed analysis shown.
+          section associated with every market. I decided to write an
+          application that can scrape the comments from a chosen market and
+          store them in a way that is easy to analyze. Click "How To" to see the
+          source code and read a tutorial on how to build your own. Click
+          "Comments Visualization" to interact with a collection of comments I
+          scraped from PredictIt.org's "Will Joe Biden be the Democratic Nominee
+          on 12/31/2024?" market. You'll see three components on the page: a
+          calendar, a bar graph, and a styled list of comments. The calendar
+          allows you to select a date and the bar graph displays a count of the
+          comments during each hour of the day. The list of comments displays
+          the comments that were posted on the selected date and sorted by the
+          hour of the day they were posted. Each comment 'pill' is displayed in
+          a gradient of red or green to indicate more negative or more positive
+          sentiment respectively. Each pill can be clicked to reveal a more
+          detailed sentiment analysis of the comment.
         </p>
         <div className="flex gap-2">
           <Link to="/HowTo" className="text-blue-500 underline">

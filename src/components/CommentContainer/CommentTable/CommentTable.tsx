@@ -46,7 +46,7 @@ const CommentTable = ({ comments }: { comments: Array<FlatPost> }) => {
           <span className="whitespace-nowrap pl-2">Most Positive</span>
         </div>
       </div>
-      <div className="h-48 overflow-y-auto p-4">
+      <div className=" p-4">
         {yAxis.map(({ hour, time }) => {
           return (
             <div
@@ -54,7 +54,7 @@ const CommentTable = ({ comments }: { comments: Array<FlatPost> }) => {
               className="flex gap-2 mb-4 border-dashed border-gray-300 border-2 rounded p-2"
             >
               <h4 className="w-36 block font-bold">{time}</h4>
-              <div className="w-8/12 h-24 overflow-y-auto">
+              <div className="w-8/12 h-24 overflow-y-scroll">
                 {comments
                   .filter((comment) => {
                     const { postedAtMS } = comment;

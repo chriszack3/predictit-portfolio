@@ -41,7 +41,9 @@ export default function CommentModal({
         onRequestClose={closeModal}
         contentLabel="Example Modal"
       >
-        <button onClick={() => closeModal()}>X</button>
+        <button className="text-2xl font-bold" onClick={() => closeModal()}>
+          X
+        </button>
 
         <div>
           {sentenceArr.length > 0 && (
