@@ -22,9 +22,17 @@ export default function CommentModal({
     setIsOpen(false);
   }
 
+  const roundDigit = (num: number) => {
+    return Math.round(num * 10000) / 10000;
+  };
+
   const sentenceArr = post?.result?.sentences || [];
   const documentSentiment = post?.result?.documentSentiment;
   const postedAt = new Date(post.postedAtMS).toLocaleString();
+  const upvotes = post?.upvotes;
+  const downvotes = post?.downvotes;
+  const author = post?.author;
+
   return (
     <div>
       <Modal
@@ -45,21 +53,28 @@ export default function CommentModal({
           )}
         </div>
         <p>
-          Document Sentiment: {documentSentiment?.score} | Document Magnitude:
-          {` `}
-          {documentSentiment?.magnitude}
+          Document Sentiment: {roundDigit(documentSentiment?.score || 0)} |
+          Document Magnitude: {roundDigit(documentSentiment?.magnitude || 0)}
         </p>
+        <p>
+          Upvotes: {upvotes} | Downvotes: {downvotes}
+        </p>
+        <p>Author: {author}</p>
         <p>Posted: {postedAt}</p>
         <div>
           {sentenceArr.map((sentence, i) => {
             return (
               <div key={uuidv4()}>
+                <div>
+                  Sentence {i + 1} Text:{` `}
+                  <Sentence key={uuidv4()} sentence={sentence} />
+                </div>
                 <p>
-                  Sentence {i + 1} Text: {sentence.text.content}
-                </p>
-                <p>
-                  <span>Score: {sentence.sentiment.score} </span>
-                  <span>Magnitude: {sentence.sentiment.magnitude} </span>
+                  <span>Score: {roundDigit(sentence.sentiment.score)} </span>
+                  <span>
+                    Magnitude: {roundDigit(sentence.sentiment.magnitude)}
+                    {` `}
+                  </span>
                 </p>
               </div>
             );
