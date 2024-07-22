@@ -19,8 +19,13 @@ export default function Comments({ data }: { data: any }) {
   useEffect(() => {
     const allComments = data.allFlatPost.edges.map((edge: any) => edge.node);
     setComments(allComments);
-    const [minDate] = getDateRange(allComments);
-    setDate(new Date(minDate));
+    const [, maxDate] = getDateRange(allComments);
+    const date = new Date(maxDate);
+    date.setHours(0);
+    date.setMinutes(0);
+    date.setSeconds(0);
+    date.setMilliseconds(0);
+    setDate(date);
   }, [data.allFlatPost.edges]);
   const toRender = comments.filter((comment) => {
     const { postedAtMS } = comment;

@@ -16,12 +16,23 @@ export default function CalendarComponent({
     setDate(e);
   };
 
+  const minDate = new Date(range[0]);
+  minDate.setHours(0);
+  minDate.setMinutes(0);
+  minDate.setSeconds(0);
+  minDate.setMilliseconds(0);
+  const maxDate = new Date(range[1]);
+  maxDate.setHours(0);
+  maxDate.setMinutes(0);
+  maxDate.setSeconds(0);
+  maxDate.setMilliseconds(0);
+
   const { date, setDate } = useContext<CommentContextType>(DateContext);
   return (
     <div>
       <Calendar
-        minDate={new Date(range[0])}
-        maxDate={new Date(range[1])}
+        minDate={minDate}
+        maxDate={maxDate}
         value={date}
         onChange={(e) => handleOnChange(e)}
       />
