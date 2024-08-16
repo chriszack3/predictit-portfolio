@@ -1,70 +1,33 @@
-import React, { useEffect, useState } from 'react';
-import Contract, { ContractType } from '@/components/Contract/Contract';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import Market from '../components/Market/Market';
 
-type MarketInfo = {
-  id: number;
-  scrapeResult: ContractType[];
-  i: number;
-  timeStampMS: number;
-  batchId: string;
-};
 const Test = () => {
-  const [data, setData] = useState<MarketInfo>({
-    id: 0,
-    scrapeResult: [],
-    i: 0,
-    timeStampMS: 0,
-    batchId: ``,
-  });
-
+  const [markets, setMarkets] = useState<any[]>([]);
+  const [selectedMarket, setSelectedMarket] = useState<string>(``);
   useEffect(() => {
-    const socket = new WebSocket(`ws://localhost:3000`);
-    socket.onopen = () => {
-      console.log(`Connected to server`);
-      socket.send(`Electoral_College_2024`);
-    };
-    socket.onmessage = (message) => {
-      // console.log('Message received: ', message.data);
-      const data = JSON.parse(message.data);
-      const scrapeResult = JSON.parse(data?.scrapeResult);
-      setData({
-        ...data,
-        scrapeResult,
-      });
-    };
-    socket.onclose = () => {
-      console.log(`Disconnected from server`);
-    };
-    return () => {
-      socket.close();
-    };
+    axios.get(`/api/getMarkets`).then((res) => {
+      setMarkets(res.data);
+    });
   }, []);
-  data?.scrapeResult.length > 0 && console.log(data);
-  const date =
-    data.timeStampMS > 0 ? new Date(data?.timeStampMS).toTimeString() : `N/A`;
-  const batchId = data.batchId !== `` ? data.batchId : `N/A`;
+  markets.length > 0 && console.log(markets);
   return (
     <div>
-      <h2>Last Scraped Timestamp: {date}</h2>
-      <h2>Batch ID: {batchId}</h2>
-      <div className="w-full flex flex-wrap">
-        {data?.scrapeResult.length > 0 &&
-          data.scrapeResult.map((scrape: any) => {
-            const { name, price, bestOfferNo, bestOfferYes, scrapedAtMS } =
-              scrape;
-            return (
-              <React.Fragment key={name}>
-                <Contract
-                  name={name}
-                  price={price}
-                  bestOfferNo={bestOfferNo}
-                  bestOfferYes={bestOfferYes}
-                  scrapedAtMS={scrapedAtMS}
-                />
-              </React.Fragment>
-            );
-          })}
+      <h1>Test</h1>
+      <div>
+        {markets.map((market, i) => {
+          return (
+            <button
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              key={i}
+              onClick={() => setSelectedMarket(market.TABLE_NAME)}
+            >
+              {market.TABLE_NAME}
+            </button>
+          );
+        })}
       </div>
+      {selectedMarket.length > 0 && <Market selectedMarket={selectedMarket} />}
     </div>
   );
 };
