@@ -21,10 +21,16 @@ const Test = () => {
     const socket = new WebSocket(`ws://localhost:3000`);
     socket.onopen = () => {
       console.log(`Connected to server`);
+      socket.send(`Electoral_College_2024`);
     };
     socket.onmessage = (message) => {
       // console.log('Message received: ', message.data);
-      setData(JSON.parse(message.data));
+      const data = JSON.parse(message.data);
+      const scrapeResult = JSON.parse(data?.scrapeResult);
+      setData({
+        ...data,
+        scrapeResult,
+      });
     };
     socket.onclose = () => {
       console.log(`Disconnected from server`);
