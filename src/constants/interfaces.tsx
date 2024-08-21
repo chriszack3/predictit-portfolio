@@ -48,3 +48,20 @@ export interface CommentContextType {
   date: Date;
   setDate: React.Dispatch<React.SetStateAction<Date>>;
 }
+
+export type ContractType = {
+  id: number;
+  name: string;
+  price: string;
+  bestOfferNo: number;
+  bestOfferYes: number;
+  scrapedAtMS: number;
+};
+
+export type MarketInfo = {
+  id: number;
+  scrapeResult: ContractType[];
+  i: number;
+  timeStampMS: number;
+  batchId: string;
+};

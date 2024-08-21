@@ -1,13 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import Contract, { ContractType } from '@/components/Contract/Contract';
+import Contract from '@/components/Contract/Contract';
+import { MarketInfo } from '@/constants/interfaces';
 
-type MarketInfo = {
-  id: number;
-  scrapeResult: ContractType[];
-  i: number;
-  timeStampMS: number;
-  batchId: string;
-};
 const Market = ({ selectedMarket }: { selectedMarket: string }) => {
   const [data, setData] = useState<MarketInfo>({
     id: 0,
@@ -24,7 +18,6 @@ const Market = ({ selectedMarket }: { selectedMarket: string }) => {
     setSocket(socket);
     socket.onopen = () => {
       console.log(`Connected to server`);
-      socket.send(selectedMarket);
     };
     socket.onmessage = (message) => {
       // console.log('Message received: ', message.data);
@@ -45,7 +38,7 @@ const Market = ({ selectedMarket }: { selectedMarket: string }) => {
 
   useEffect(() => {
     socket?.send(selectedMarket);
-  }, [selectedMarket]);
+  }, [selectedMarket, socket]);
 
   data?.scrapeResult.length > 0 && console.log(data);
   const date =

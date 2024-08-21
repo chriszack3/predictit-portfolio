@@ -1,13 +1,5 @@
 import { useEffect, useRef } from 'react';
-
-export type ContractType = {
-  id: number;
-  name: string;
-  price: number;
-  bestOfferNo: number;
-  bestOfferYes: number;
-  scrapedAtMS: number;
-};
+import { ContractType } from '@/constants/interfaces';
 
 const Contract = ({
   id,
