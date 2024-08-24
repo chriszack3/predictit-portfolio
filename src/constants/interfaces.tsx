@@ -50,18 +50,47 @@ export interface CommentContextType {
 }
 
 export type ContractType = {
-  id: number;
-  name: string;
-  price: string;
-  bestOfferNo: number;
-  bestOfferYes: number;
-  scrapedAtMS: number;
+  name: string | undefined;
+  price: string | undefined;
+  bestOfferNo: string | undefined;
+  bestOfferYes: string | undefined;
+  betTotal?: number | undefined;
 };
 
 export type MarketInfo = {
   id: number;
-  scrapeResult: ContractType[];
   i: number;
-  timeStampMS: number;
-  batchId: string;
+  timestamp: number;
+  name1?: string;
+  price1?: string;
+  bestOfferNo1?: string;
+  bestOfferYes1?: number;
+  name2?: string;
+  price2?: string;
+  bestOfferNo2?: string;
+  bestOfferYes2?: number;
+  name3?: string;
+  price3?: string;
+  bestOfferNo3?: string;
+  bestOfferYes3?: number;
+  name4?: string;
+  price4?: string;
+  bestOfferNo4?: string;
+  bestOfferYes4?: number;
+  name5?: string;
+  price5?: string;
+  bestOfferNo5?: string;
+  bestOfferYes5?: number;
+  name6?: string;
+  price6?: string;
+  bestOfferNo6?: string;
+  bestOfferYes6?: number;
+  name7?: string;
+  price7?: string;
+  bestOfferNo7?: string;
+  bestOfferYes7?: number;
+  name8?: string;
+  price8?: string;
+  bestOfferNo8?: string;
+  bestOfferYes8?: number;
 };
