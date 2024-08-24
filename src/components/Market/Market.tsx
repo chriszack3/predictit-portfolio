@@ -2,49 +2,18 @@ import { useEffect, useState, useRef } from 'react';
 import Contract from '@/components/Contract/Contract';
 import { ContractType, MarketInfo } from '@/constants/interfaces';
 
-const Market = ({ selectedMarket }: { selectedMarket: string }) => {
-  const [data, setData] = useState<MarketInfo>({
-    id: 0,
-    i: 0,
-    timestamp: 0,
-  });
-
+const Market = ({
+  selectedMarket,
+  data,
+}: {
+  selectedMarket: string;
+  data: MarketInfo;
+}) => {
   const prevTimestamp = useRef<number>(0);
 
   const [contracts, setContracts] = useState<ContractType[]>([]);
 
   const [staleData, setStaleData] = useState<boolean>(false);
-
-  const [socket, setSocket] = useState<WebSocket | null>(null);
-  const removeEmpty = (obj: Object) => {
-    return Object.entries(obj)
-      .filter(([_, v]) => v != null)
-      .reduce((acc, [k, v]) => ({ ...acc, [k]: v }), {});
-  };
-  useEffect(() => {
-    const socket = new WebSocket(`ws://localhost:3000`);
-    setSocket(socket);
-    socket.onopen = () => {
-      console.log(`Connected to server`);
-      socket.send(selectedMarket);
-    };
-    socket.onmessage = (message) => {
-      // console.log('Message received: ', message.data);
-      const data = removeEmpty(JSON.parse(message.data)) as MarketInfo;
-      setData(data);
-      console.log(data);
-    };
-    socket.onclose = () => {
-      console.log(`Disconnected from server`);
-    };
-    return () => {
-      socket.close();
-    };
-  }, []);
-
-  useEffect(() => {
-    socket?.send(selectedMarket);
-  }, [selectedMarket]);
 
   useEffect(() => {
     console.log(data.timestamp, prevTimestamp.current);
@@ -77,22 +46,21 @@ const Market = ({ selectedMarket }: { selectedMarket: string }) => {
     setContracts(contracts as ContractType[]);
   }, [data]);
 
-  const date =
-    data.timestamp > 0 ? new Date(data?.timestamp).toTimeString() : `N/A`;
+  const date = data.timestamp > 0 ? new Date(data?.timestamp) : new Date();
   return (
-    <div>
-      <button
-        onClick={() =>
-          setContracts([{ ...contracts[0], price: `52.3` }, ...contracts])
-        }
-      >
-        Click
-      </button>
-
-      <h2 style={{ backgroundColor: staleData ? `red` : `green` }}>
-        Market: {selectedMarket}Last Scraped Timestamp: {date}
+    <div
+      style={{ backgroundColor: staleData ? `red` : `transparent` }}
+      className="w-5/12 border-dashed border-2 border-gray-600 rounded pt-6 pb-6"
+    >
+      <h2 className="text-2xl text-center">{selectedMarket}</h2>
+      <h2 className="text-xl font-bold">
+        {staleData
+          ? `--WARNING STALE DATA-- Last Scraped: ${
+              (Date.now() - data.timestamp) / 1000
+            } seconds ago`
+          : date.toISOString()}
       </h2>
-      <div className="w-full flex flex-wrap">
+      <div className="w-full flex flex-wrap justify-between">
         {contracts.length > 0 &&
           contracts.map((contract, i) => {
             return (

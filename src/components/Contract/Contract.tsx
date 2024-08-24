@@ -49,7 +49,10 @@ const Contract = ({
   };
 
   return (
-    <div key={uuidv4()} className="bg-gray-200 p-2 mb-2 w-6/12">
+    <div
+      key={uuidv4()}
+      className="bg-gray-200 p-4 mb-2 w-fit border border-gray-300 shadow-md rounded"
+    >
       <h3 className="text-md">
         <em>{name}</em>
       </h3>
@@ -80,19 +83,19 @@ const Contract = ({
         >
           Best Offer No: <strong>{bestOfferNo}</strong>
         </h3>
-        {betTotal && (
-          <h3
-            className="text-sm h-fit w-fit"
-            style={{
-              backgroundColor: betTotalChange ? `yellow` : `transparent`,
-            }}
-          >
-            Bet Total: $<strong>{numberWithCommas(betTotal)}</strong>
-            {betTotalChange &&
-              ` +${betTotal - (prevState?.current?.betTotal || 0)}`}
-          </h3>
-        )}
       </div>
+      {betTotal && (
+        <h3
+          className="text-sm h-fit w-fit"
+          style={{
+            backgroundColor: betTotalChange ? `yellow` : `transparent`,
+          }}
+        >
+          Bet Total: $<strong>{numberWithCommas(betTotal)}</strong>
+          {betTotalChange &&
+            ` +${betTotal - (prevState?.current?.betTotal || 0)}`}
+        </h3>
+      )}
     </div>
   );
 };
