@@ -2,6 +2,23 @@ import { useEffect, useState, useRef } from 'react';
 import Contract from '@/components/Contract/Contract';
 import { ContractType, MarketInfo } from '@/constants/interfaces';
 
+const SecondsAgo = ({ date }: { date: Date }) => {
+  const [seconds, setSeconds] = useState(0);
+  const [tick, setTick] = useState(true);
+
+  useEffect(() => {
+    const now = new Date();
+    const diff = new Date(date);
+
+    setSeconds((Number(now) - Number(diff)) / 1000);
+    setTimeout(() => {
+      setTick(!tick);
+    }, 1000);
+  }, [tick]);
+
+  return <span>{seconds} seconds ago</span>;
+};
+
 const Market = ({
   selectedMarket,
   data,
@@ -53,13 +70,10 @@ const Market = ({
       className="w-5/12 border-dashed border-2 border-gray-600 rounded pt-6 pb-6"
     >
       <h2 className="text-2xl text-center">{selectedMarket}</h2>
-      <h2 className="text-xl font-bold">
-        {staleData
-          ? `--WARNING STALE DATA-- Last Scraped: ${
-              (Date.now() - data.timestamp) / 1000
-            } seconds ago`
-          : date.toISOString()}
-      </h2>
+      {staleData && `WARNING: stale data `}
+      <br />
+      {`Last Scraped: `}
+      <SecondsAgo date={date} />
       <div className="w-full flex flex-wrap justify-between">
         {contracts.length > 0 &&
           contracts.map((contract, i) => {
